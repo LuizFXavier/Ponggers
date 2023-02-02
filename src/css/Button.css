@@ -1,0 +1,10 @@
+.button-menu {
+  margin: auto;
+  display: block;
+  margin-bottom: 4px;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 30px;
+  
+}
