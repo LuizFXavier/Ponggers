@@ -11,7 +11,7 @@ class Bola {
 
     }
     movimento(time) {
-        let acelarador = time.xlr8 ? 2:1
+        let acelarador = time.xlr8 ? 1.5:1
         this.x += this.speed * this.moveX * acelarador
         this.y += this.speed * this.moveY * acelarador
     }
@@ -23,7 +23,7 @@ class Bola {
     }
     colidirParede(parede) {
         if (Collision.rectangleCollision(this, parede)) {
-            if (parede.y < this.y) {
+            if (parede.y < this.y + this.speed) {
 
                 this.y = parede.y + parede.height
             }

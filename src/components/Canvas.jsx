@@ -18,19 +18,19 @@ const Canvas = ({ voltarMenu }) => {
       xlr8: false,
     };
 
-    const player1 = new Player(10, 20, 20, 50, 5, "elMundo");
+    const player1 = new Player(10, 20, 20, 50, 5, "za Hando");
     const player2 = new Player(
       canvas.width - 30,
       20,
       20,
       50,
       5,
-      "made In Heaven"
+      "echo act3"
     );
 
     const paredeCima = new Parede(0, 0, canvas.width, 5);
     const paredeBaixo = new Parede(0, canvas.height - 5, canvas.width, 5);
-    const bola = new Bola(canvas, 15, 15, 3);
+    const bola = new Bola(canvas, 15, 15, 4);
 
     const placar = {
       player1: 0,
@@ -52,7 +52,7 @@ const Canvas = ({ voltarMenu }) => {
     keys.set("d", false);
     keys.set("w", false);
     keys.set("s", false);
-    keys.set("f", false);
+    
 
     const arrows = new Map();
 
@@ -65,6 +65,9 @@ const Canvas = ({ voltarMenu }) => {
     function update() {
       player1.move(keys, time);
       player2.move(arrows, time);
+
+      player1.stands(keys, time, bola, player2, paredeBaixo)
+      player2.stands(arrows, time, bola, player1, paredeBaixo)
 
       player1.colidirParede(paredeCima);
       player1.colidirParede(paredeBaixo);

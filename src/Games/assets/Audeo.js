@@ -6,5 +6,8 @@ class Audeo{
     play(){
         this.audio.play()
     }
+    getVolume(){
+        return this.audio.volume;
+    }
 }
 export default Audeo
