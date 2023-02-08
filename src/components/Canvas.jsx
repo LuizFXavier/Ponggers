@@ -18,19 +18,12 @@ const Canvas = ({ voltarMenu }) => {
       xlr8: false,
     };
 
-    const player1 = new Player(10, 20, 20, 50, 5, "za Hando");
-    const player2 = new Player(
-      canvas.width - 30,
-      20,
-      20,
-      50,
-      5,
-      "echo act3"
-    );
+    const player1 = new Player(10, 20, 20, 50, 5, "made In Heaven");
+    const player2 = new Player(canvas.width - 30, 20, 20, 50, 5, "kiss");
 
     const paredeCima = new Parede(0, 0, canvas.width, 5);
     const paredeBaixo = new Parede(0, canvas.height - 5, canvas.width, 5);
-    const bola = new Bola(canvas, 15, 15, 4);
+    const bolas = [new Bola(canvas, 15, 15, 4)];
 
     const placar = {
       player1: 0,
@@ -52,7 +45,6 @@ const Canvas = ({ voltarMenu }) => {
     keys.set("d", false);
     keys.set("w", false);
     keys.set("s", false);
-    
 
     const arrows = new Map();
 
@@ -66,8 +58,8 @@ const Canvas = ({ voltarMenu }) => {
       player1.move(keys, time);
       player2.move(arrows, time);
 
-      player1.stands(keys, time, bola, player2, paredeBaixo)
-      player2.stands(arrows, time, bola, player1, paredeBaixo)
+      player1.stands(keys, time, bolas, player2, paredeBaixo, canvas);
+      player2.stands(arrows, time, bolas, player1, paredeBaixo, canvas);
 
       player1.colidirParede(paredeCima);
       player1.colidirParede(paredeBaixo);
@@ -75,12 +67,17 @@ const Canvas = ({ voltarMenu }) => {
       player2.colidirParede(paredeCima);
       player2.colidirParede(paredeBaixo);
 
-      bola.colidirParede(paredeBaixo);
-      bola.colidirParede(paredeCima);
-      bola.colidirPlayer(player1);
-      bola.colidirPlayer(player2);
-      if (!time.stopTime) bola.movimento(time);
-      bola.marcarGol(canvas, placar);
+      bolas.forEach((bola) => {
+        bola.colidirParede(paredeBaixo);
+        bola.colidirParede(paredeCima);
+        bola.colidirPlayer(player1);
+        bola.colidirPlayer(player2);
+        if (!time.stopTime) bola.movimento(time);
+        bola.marcarGol(canvas, placar);
+        console.log(bola)
+      });
+      // console.log(bolas)
+
     }
 
     function animate() {
@@ -95,7 +92,10 @@ const Canvas = ({ voltarMenu }) => {
       paredeCima.desenhar(ctx);
       paredeBaixo.desenhar(ctx);
 
-      bola.desenhar(ctx);
+      bolas.forEach(bola =>{
+        bola.desenhar(ctx);
+      })
+      
       placar.render();
 
       window.requestAnimationFrame(animate);

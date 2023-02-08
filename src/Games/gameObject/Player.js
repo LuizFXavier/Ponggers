@@ -1,5 +1,6 @@
 import Collision from "../math/Collision";
 import Audeo from "../assets/Audeo"
+import BolaKiss from "./BolaKiss";
 class Player {
     constructor(x, y, width, height, speed, stand) {
         this.x = x;
@@ -46,7 +47,7 @@ class Player {
         }
 
     }
-    stands(teclas, time, bola, outroP, paredeBaixo) {
+    stands(teclas, time, bolas, outroP, paredeBaixo, canvas) {
         if ((teclas.get("d") || teclas.get("ArrowLeft")) && !this.cooldown) {
 
             switch (this.stand) {
@@ -65,12 +66,15 @@ class Player {
                     break;
 
                 case "made In Heaven":
+                    this.cooldown = true;
                     setTimeout(() => {
 
                         time.xlr8 = true;
+                        
                     }, 1500);
                     this.audios.get("rapidin").play()
                     setTimeout(() => {
+                        this.cooldown = false;
                         time.xlr8 = false
                     }, 10000);
                     break;
@@ -81,18 +85,45 @@ class Player {
                     setTimeout(() => {
                         this.cooldown = false
                     }, 2000);
-                    bola.x = this.x + this.width;
-                    bola.y = this.y;
+                    bolas.forEach(bola => {
+
+                        bola.x = this.x + this.width;
+                        bola.y = this.y;
+                    });
 
                     break;
                 case "echo act3":
                     outroP.freeze = true;
-
+                    this.cooldown = true
                     outroP.y = paredeBaixo.y - outroP.height;
                     setTimeout(() => {
                         outroP.freeze = false;
+                        this.cooldown = false;
                     }, 2000);
                     break;
+                case "little feat":
+                    this.cooldown = true
+                    let temp = outroP.height;
+                    outroP.height /= 2
+                    setTimeout(() => {
+                        outroP.height = temp;
+                        this.cooldown = false;
+                    }, 5000);
+                    break;
+                case "kiss":
+                    
+                    bolas.push(new BolaKiss(canvas, bolas[0]))
+                    this.cooldown = true
+                    setTimeout(() => {
+                        bolas[1].x = bolas[0].x
+                        bolas[1].y = bolas[0].y
+                        bolas[1].moveX = bolas[0].moveX
+                        bolas[1].moveY = bolas[0].moveY
+                    }, 7500);
+                    setTimeout(() => {
+                        bolas.pop();
+                        this.cooldown = false;
+                    }, 8000);
                 default:
                     break;
             }

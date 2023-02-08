@@ -6,8 +6,12 @@ class Bola {
         this.width = width
         this.height = height
         this.speed = speed
-
+        this.x = 0
+        this.y = 0
+        this.moveX = 0
+        this.moveY = 0
         this.resetar(canvas)
+        
 
     }
     movimento(time) {
@@ -60,5 +64,6 @@ class Bola {
         this.moveX = this.directions[Math.floor(Math.random() * 2)]
         this.moveY = this.directions[Math.floor(Math.random() * 2)] * (Math.random() + 0.2)
     }
+    
 }
 export default Bola
