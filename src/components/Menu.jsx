@@ -8,7 +8,7 @@ const Menu = ({ titulo, botao1 }) => {
     console.log("click");
   };
   const botao2 = () => {
-    console.log("clickado 2");
+    console.log("What is a surfist?");
   };
   return (
     <>

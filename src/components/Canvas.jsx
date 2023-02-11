@@ -4,7 +4,9 @@ import Player from "../Games/gameObject/Player";
 import Parede from "../Games/gameObject/Parede";
 import Bola from "../Games/gameObject/Bola";
 
-const Canvas = ({ voltarMenu }) => {
+
+
+const Canvas = ({ stand1, stand2 }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -125,3 +127,9 @@ const Canvas = ({ voltarMenu }) => {
 };
 
 export default Canvas;
+export const standsExistentes = ["elMundo",
+"made In Heaven",
+"za Hando",
+"echo act3",
+"little feat",
+"kiss"];
